@@ -4,8 +4,23 @@ BEGIN { FS="\t"; OFS="\t&\t"; FRAC = 2; REM = 2; }
 
 {
 	out = "$" $1 "$"
+	
+	for (i = 2; i <= 3; i += 1) {
+		val_abs = ($i < 0 ? -$i : $i)
+		
+		dcp = REM;
+		cur = 10;
+		
+		while (val_abs >= cur && dcp > 0) {
+			cur = cur * 10;
+			dcp = dcp - 1;
+		}
+		
+		rounded = sprintf("%0." dcp "f", $i)
+		out = out OFS "$" rounded "$"
+	}
 
-	for (i = 2; i <= NF; i += 2) {
+	for (i = 4; i <= NF; i += 2) {
 		val = $i; unc = $(i+1);
 		  
 		val_abs = (val < 0 ? -val : val)

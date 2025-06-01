@@ -1,6 +1,5 @@
-# usage: octave case_1_sine.m f_mul f_no nsam noise_var window_function
-
 clear;
+#clf;
 
 pkg load statistics;
 pkg load communications;
@@ -8,7 +7,7 @@ pkg load ltfat;
 pkg load parallel;
 pkg load signal;
 
-addpath("../libs");
+addpath("libs");
 
 args = argv();
 f_mul = 0.0;
@@ -104,7 +103,11 @@ for i = 1 : iters_a
   y = f_in(x);
 
   # perform converter part tasks
-  ya = y + f_err_1(x, f_fil_a_amp_f_1, f_fil_a_phi_f_1) + gen_randn(nsam, noi, 'w');
+  ya = y + f_err_1(x, f_fil_a_amp_f_1, f_fil_a_phi_f_1);
+
+  dyn_w = var(ya - y);
+
+  ya = ya + gen_randn(nsam, noi, 'w');
 
   trans = fft(wnd_vec .* ya);
 
@@ -120,4 +123,4 @@ end;
 diff_a = mean(a_diffs); [ua, ca, sa] = get_uncertainty(a_diffs);
 diff_s = mean(s_diffs); [us, cs, ss] = get_uncertainty(s_diffs);
 
-printf("%10.2f\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\n", noi, diff_a, ua, ca, sa, diff_s, us, cs, ss);
+printf("%11.9f\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\n", noi, diff_a, ua, ca, sa, diff_s, us, cs, ss);

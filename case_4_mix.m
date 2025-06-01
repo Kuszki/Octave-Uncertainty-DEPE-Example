@@ -1,6 +1,5 @@
-# usage: octave case_1_sine.m nsam nharms window_function
-
 clear;
+#clf;
 
 pkg load statistics;
 pkg load communications;
@@ -8,7 +7,7 @@ pkg load ltfat;
 pkg load parallel;
 pkg load signal;
 
-addpath("../libs");
+addpath("libs");
 
 args = argv();
 nsam = 128;
@@ -65,7 +64,7 @@ dc_vec = 2 * rand(1, iters_a) - 1;
 am_vec = rand(nsin, iters_a) * 0.75 + 0.25;
 ph_vec = 2*pi * rand(nsin, iters_a);
 fq_vec = 3000 + rand(nsin, iters_a) * (fs/2 - 6000);
-no_vec = 0.1 * rand(1, iters_a);
+no_vec = (0.1-0.001) * rand(1, iters_a) + 0.001;
 
 freq_vec = (0 : nsam-1)*fs/nsam;
 x0 = Ts*(0 : nsam-1);

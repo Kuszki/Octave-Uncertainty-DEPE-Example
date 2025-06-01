@@ -1,6 +1,5 @@
-# usage: octave case_1_sine.m f_no f_start nsam window_function
-
 clear;
+#clf;
 
 pkg load statistics;
 pkg load communications;
@@ -8,7 +7,7 @@ pkg load ltfat;
 pkg load parallel;
 pkg load signal;
 
-addpath("../libs");
+addpath("libs");
 
 args = argv();
 f_mul = 0.0;
@@ -111,5 +110,6 @@ end;
 
 diff_a = mean(a_diffs); [ua, ca, sa] = get_uncertainty(a_diffs);
 diff_s = mean(s_diffs); [us, cs, ss] = get_uncertainty(a_diffs);
+
 
 printf("%10.1f\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\t%10.5g\n", f_mul, diff_a, ua, ca, sa, diff_s, us, cs, ss);

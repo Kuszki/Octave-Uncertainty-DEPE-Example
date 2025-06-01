@@ -49,7 +49,7 @@ while (( i < arg_count - 1 )); do
 done
 
 # Sklej kolumny
-paste "${paste_args[@]}" | tee tmp.txt | awk -f format.sh | tee "$output_file"
+paste "${paste_args[@]}" | awk -f format.sh | tee "$output_file"
 
 # Porządki
 rm -r "$temp_dir"
